@@ -1,6 +1,6 @@
 import pytest
 
-from pre_commit_hooks.trailing_whitespace_fixer import main
+from pre_commit_hooks.prevent_commit_submodule import main
 
 
 @pytest.mark.parametrize(

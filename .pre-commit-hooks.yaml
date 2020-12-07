@@ -198,10 +198,10 @@
     entry: sort-simple-yaml
     description: Sorts simple YAML files which consist only of top-level keys, preserving comments and blocks.
     files: '^$'
--   id: trailing-whitespace
-    name: Trim Trailing Whitespace
-    description: This hook trims trailing whitespace.
-    entry: trailing-whitespace-fixer
+-   id: prevent-commit-submodule
+    name: Prevent commits in submodules
+    description: This hook prevents developers from committing in submodules.
+    entry: prevent-commit-submodule
     language: python
     types: [text]
     stages: [commit, push, manual]
