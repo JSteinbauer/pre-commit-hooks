@@ -2,6 +2,7 @@ import argparse
 from typing import Optional
 from typing import Sequence
 
+from pre_commit_hooks.end_of_file_fixer import fix_file
 from pre_commit_hooks.util import is_git_submodule
 
 
