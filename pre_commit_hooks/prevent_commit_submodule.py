@@ -43,6 +43,7 @@ def _process_line(
 
 def main(argv: Optional[Sequence[str]] = None) -> int:
     parser = argparse.ArgumentParser()
+    # the first argument will contain the file .pre-commit-config.yaml
     parser.add_argument('filenames', nargs='*', help='Filenames to check.')
     parser.add_argument(
         '--recursive',
