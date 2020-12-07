@@ -2,7 +2,6 @@ import argparse
 from typing import Optional
 from typing import Sequence
 
-from pre_commit_hooks.end_of_file_fixer import fix_file
 from pre_commit_hooks.util import is_git_submodule
 
 
@@ -43,36 +42,22 @@ def _process_line(
 
 
 def main(argv: Optional[Sequence[str]] = None) -> int:
-    # parser = argparse.ArgumentParser()
-    # parser.add_argument(
-    #     '--recursive',
-    #     type=bool,
-    #     default=False,
-    #     help='Recursively search for .git folders in subordinate directories',
-    # )
-    # args = parser.parse_args(argv)
-    # if is_git_submodule(recursive=args.recursive):
-    #     print('Repository is a submodule. To commit changes, pull edit '
-    #           'and commit outside of the super repository')
-    #     return 1
-    # else:
-    #     print('OK')
-    #     return 0
     parser = argparse.ArgumentParser()
-    parser.add_argument('filenames', nargs='*', help='Filenames to fix')
+    parser.add_argument('filenames', nargs='*', help='Filenames to check.')
+    parser.add_argument(
+        '--recursive',
+        type=bool,
+        default=False,
+        help='Recursively search for .git folders in subordinate directories',
+    )
     args = parser.parse_args(argv)
-
-    retv = 0
-
-    for filename in args.filenames:
-        # Read as binary so we can read byte-by-byte
-        with open(filename, 'rb+') as file_obj:
-            ret_for_file = fix_file(file_obj)
-            if ret_for_file:
-                print(f'Fixing {filename}')
-            retv |= ret_for_file
-
-    return retv
+    if is_git_submodule(recursive=args.recursive):
+        print('Repository is a submodule. To commit changes, pull edit '
+              'and commit outside of the super repository')
+        return 1
+    else:
+        print('OK')
+        return 0
 
 
 if __name__ == '__main__':
